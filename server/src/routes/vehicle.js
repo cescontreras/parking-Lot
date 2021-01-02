@@ -21,11 +21,14 @@ server.get("/queue", (req, res) => {
 // cambiar el create por un findorcreate, de manera que cuando remueva el vehiculo, desde el front haga el post con el proximo elemento de la queue,
 // entonces si lo encuentra no lo crea y sigue el camino
 server.post("/", (req, res) => {
-	const { type, owner } = req.body;
+	const query = req.body;
 	//----create vehicle on queue
-	Vehicle.findOrCreate({where: { type: type , owner: owner }})
+	Vehicle.findOrCreate({where: query})
 		.then((vehicle) => {
 			let filter = ["small", "medium", "large"];
+			if(!vehicle[0].isWaiting){
+				return res.status(200).json({ msg: "Vehicle Already Parked" });
+			}
 			if (vehicle[0].dataValues.type === "sedan") {
 				filter = ["medium", "large"];
 			}
