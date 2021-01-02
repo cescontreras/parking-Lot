@@ -1,6 +1,7 @@
 import Queue from "./components/queue/Queue";
 import ParkingLot from "./components/parkinglot/ParkingLot";
 import Header from "./components/header/Header";
+import AddVehicle from "./components/addVehicle/AddVehicle";
 import "./App.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -32,6 +33,7 @@ function App() {
 				<Queue queue={queue}/>
 				<div className="parkinglot-container">
 					<ParkingLot parkingLot={parkingLot}/>
+          <AddVehicle getParkingLot={getParkingLot} getQueue={getQueue}/>
 				</div>
 			</div>
 		</div>

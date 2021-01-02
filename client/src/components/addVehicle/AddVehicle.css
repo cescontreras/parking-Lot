@@ -1,0 +1,12 @@
+.add-vehicle {
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.vehicle-form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

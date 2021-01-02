@@ -10,6 +10,7 @@ module.exports = (sequelize) => {
     },
     type: {
       type: DataTypes.ENUM('motorcycle', 'sedan', 'truck'),
+      allowNull: false
     },
     isWaiting: {
       type: DataTypes.BOOLEAN,

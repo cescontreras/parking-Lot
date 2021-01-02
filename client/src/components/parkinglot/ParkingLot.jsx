@@ -2,8 +2,9 @@ import React from "react";
 import "./ParkingLot.css";
 
 export default function ParkingLot({ parkingLot }) {
-	console.log(parkingLot);
 
+	console.log(parkingLot);
+		 
 	return (
 		<div className="parkinglot">
 			<table className="table table-bordered table-lg">
@@ -19,8 +20,8 @@ export default function ParkingLot({ parkingLot }) {
 				</thead>
 				<tbody>
 					{parkingLot[0] &&
-						parkingLot.map((space) => (
-							<tr className={space.isOccupied ? "table-success" : "table-danger"}>
+						parkingLot.map((space, i) => (	
+							<tr className={space.isOccupied ? "table-success" : "table-danger"} key={i}>
 								<th scope="row">{space.number}</th>
 								<td>{space.vehicles[0] ? space.vehicles[0].owner : "---"}</td>
 								<td>{space.size}</td>
