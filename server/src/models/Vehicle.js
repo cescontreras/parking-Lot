@@ -1,10 +1,27 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes, NOW } = require('sequelize');
 
 module.exports = (sequelize) => {
 
   sequelize.define('vehicle', {
-    type:{
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    type: {
       type: DataTypes.ENUM('motorcycle', 'sedan', 'truck'),
+    },
+    isWaiting: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
+    },
+    owner: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    arrivalDate: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW
     }
   })
 }

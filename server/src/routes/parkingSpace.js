@@ -24,7 +24,4 @@ server.post("/", (req, res) => {
     })
 })
 
-
-
-
 module.exports = server;
