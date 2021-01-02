@@ -1,0 +1,5 @@
+.parkinglot {
+  width: 70%;
+  display: flex;
+  justify-content: center;
+}

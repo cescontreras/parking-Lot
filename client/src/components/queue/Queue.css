@@ -1,0 +1,9 @@
+.queue{
+  width: 30%;
+  display: flex;
+  justify-content: center;
+}
+
+.queue-table {
+  width: 75%;
+}
