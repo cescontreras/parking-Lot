@@ -21,6 +21,18 @@ function App() {
     setQueue(data);
   }
 
+  const postVehicle = async (vehicle) => {
+    const data = await axios.post("http://localhost:3001/vehicle", vehicle)
+    getQueue();
+    getParkingLot();
+  }
+
+  const removeVehicle = async (id) => {
+    const {data} = await axios.delete(`http://localhost:3001/vehicle/${id}`)
+    console.log(data);
+    postVehicle(queue.shift())    
+  }
+
   useEffect(() => {
     getParkingLot();
     getQueue();
@@ -32,8 +44,8 @@ function App() {
 			<div className="gral-container">
 				<Queue queue={queue}/>
 				<div className="parkinglot-container">
-					<ParkingLot parkingLot={parkingLot}/>
-          <AddVehicle getParkingLot={getParkingLot} getQueue={getQueue}/>
+					<ParkingLot parkingLot={parkingLot} removeVehicle={removeVehicle}/>
+          <AddVehicle postVehicle={postVehicle}/>
 				</div>
 			</div>
 		</div>

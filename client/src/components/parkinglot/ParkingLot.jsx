@@ -1,7 +1,7 @@
 import React from "react";
 import "./ParkingLot.css";
 
-export default function ParkingLot({ parkingLot }) {
+export default function ParkingLot({ parkingLot, removeVehicle }) {
 
 	console.log(parkingLot);
 		 
@@ -27,7 +27,7 @@ export default function ParkingLot({ parkingLot }) {
 								<td>{space.size}</td>
 								<td>{space.vehicles[0] ? space.vehicles[0].type : "---"}</td>
 								<td>{space.isOccupied ? "Ocuppied" : "Free"}</td>
-								<td>X</td>
+								<td onClick={() => removeVehicle(space.vehicles[0].id)}>X</td>
 							</tr>
 						))}
 				</tbody>

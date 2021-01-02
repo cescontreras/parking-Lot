@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import "./AddVehicle.css";
 
-export default function AddVehicle({getQueue, getParkingLot}) {
+export default function AddVehicle({postVehicle}) {
 
   const [vehicle, setVehicle] = useState({});
   const [requestState, setRequestState] = useState();
@@ -14,12 +14,10 @@ export default function AddVehicle({getQueue, getParkingLot}) {
     })
   }
 
-  const postVehicle = async (e) => {
+  const handlePost = async (e) => {
     e.preventDefault();
-    const data = await axios.post("http://localhost:3001/vehicle", vehicle)
-    getQueue();
-    getParkingLot();
-    setVehicle({}) 
+    postVehicle(vehicle); 
+    setVehicle({});
   }
     
 	return (
@@ -35,7 +33,7 @@ export default function AddVehicle({getQueue, getParkingLot}) {
 					<option value="sedan">Sedan</option>
 					<option value="truck">Truck</option>
 				</select>
-				<button className="btn btn-secondary" onClick={postVehicle}>Park</button>
+				<button className="btn btn-secondary" onClick={handlePost}>Park</button>
 			</form>
 		</div>
 	);
