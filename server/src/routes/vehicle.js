@@ -3,7 +3,13 @@ const { Vehicle, ParkingSpace, OccupiedSpace } = require("../db");
 
 //----- get Queue
 server.get("/queue", (req, res) => {
-	Vehicle.findAll({ where: { isWaiting: true } })
+
+	Vehicle.findAll({ 
+    where: { 
+      isWaiting: true 
+    },
+    order: [["arrivalDate", "ASC"]] 
+  })
 		.then((vehicles) => {
 			res.status(200).json(vehicles);
 		})
@@ -12,10 +18,10 @@ server.get("/queue", (req, res) => {
 		});
 });
 
-//----- add vehicle
+//------------------ADD vehicle
 server.post("/", (req, res) => {
 	const { type, owner } = req.body;
-
+//----create vehicle on queue
 	Vehicle.create({ type, owner })
 		.then((vehicle) => {
 			let filter = ["small", "medium", "large"];
@@ -25,16 +31,18 @@ server.post("/", (req, res) => {
 			if (vehicle.dataValues.type === "truck") {
 				filter = ["large"];
 			}
-
+//-----find out if there is availables spaces for thah vehicle
 			ParkingSpace.findOne({
 				where: {
 					isOccupied: false,
 					size: filter,
 				},
 			}).then((space) => {
+        //-- if don't, just get out
         if(!space){
           return res.status(200).json({msg: "Parking Lot Full"})
         }
+        //--- if ok, update parking space as occupied
 				ParkingSpace.update(
 					{
 						isOccupied: true,
@@ -45,22 +53,26 @@ server.post("/", (req, res) => {
 						},
           }
         )
-        Vehicle.update(
-          {
-            isWaiting: false
-          },
-          {
-            where: {
-              id: vehicle.dataValues.id
-            }
-          }
-        )
         .then(() => {
-          vehicle.addParkingSpace(space.dataValues.number)
-            .then(() => {
-              res.status(200).json(vehicle);
-            });
-				});
+          //--- get the vehicle out of the queue
+          Vehicle.update(
+            {
+              isWaiting: false
+            },
+            {
+              where: {
+                id: vehicle.dataValues.id
+              }
+            }
+          )        
+          .then(() => {
+            //-----set instances relationship
+            vehicle.addParkingSpace(space.dataValues.number)
+              .then(() => {
+                res.status(200).json({msg: "Vehicle Parked"});
+              });
+          });
+        })
 			});
 		})
 		.catch((e) => {
