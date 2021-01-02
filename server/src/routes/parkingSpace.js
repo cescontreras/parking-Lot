@@ -1,9 +1,9 @@
 const server = require("express").Router();
-const { ParkingSpace } = require("../db");
+const { ParkingSpace, Vehicle } = require("../db");
 
 server.get('/', (req, res) => {
 
-  ParkingSpace.findAll()
+  ParkingSpace.findAll({include: Vehicle})
     .then(spaces => {
       res.status(200).json({spaces, msg: "Ok"})
     })

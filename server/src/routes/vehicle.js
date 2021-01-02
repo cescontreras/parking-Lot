@@ -1,5 +1,5 @@
 const server = require("express").Router();
-const { Vehicle, ParkingSpace, OccupiedSpace } = require("../db");
+const { Vehicle, ParkingSpace } = require("../db");
 
 //----- get Queue
 server.get("/queue", (req, res) => {
@@ -23,13 +23,13 @@ server.get("/queue", (req, res) => {
 server.post("/", (req, res) => {
 	const { type, owner } = req.body;
 	//----create vehicle on queue
-	Vehicle.create({ type, owner })
+	Vehicle.findOrCreate({where: { type: type , owner: owner }})
 		.then((vehicle) => {
 			let filter = ["small", "medium", "large"];
-			if (vehicle.dataValues.type === "sedan") {
+			if (vehicle[0].dataValues.type === "sedan") {
 				filter = ["medium", "large"];
 			}
-			if (vehicle.dataValues.type === "truck") {
+			if (vehicle[0].dataValues.type === "truck") {
 				filter = ["large"];
 			}
 			//-----find out if there is availables spaces for thah vehicle
@@ -61,12 +61,12 @@ server.post("/", (req, res) => {
 						},
 						{
 							where: {
-								id: vehicle.dataValues.id,
+								id: vehicle[0].dataValues.id,
 							},
 						}
 					).then(() => {
 						//-----set instances relationship
-						vehicle.addParkingSpace(space.dataValues.number).then(() => {
+						vehicle[0].addParkingSpace(space.dataValues.number).then(() => {
 							res.status(200).json({ msg: "Vehicle Parked" });
 						});
 					});

@@ -41,35 +41,16 @@ sequelize.models = Object.fromEntries(capsEntries);
 const {
 	Vehicle,
 	ParkingSpace, 
-	VehicleType,
-	OccupiedSpace
+	VehicleType
 } = sequelize.models;
 
 //-------RELACIONES
 
-Vehicle.belongsToMany(ParkingSpace, {through: OccupiedSpace});
-ParkingSpace.belongsToMany(Vehicle, {through: OccupiedSpace});
+Vehicle.belongsToMany(ParkingSpace, {through: "OccupiedSpace"});
+ParkingSpace.belongsToMany(Vehicle, {through: "OccupiedSpace"});
 
 Vehicle.belongsTo(VehicleType);
 VehicleType.hasMany(Vehicle);
-
-//-----------------
-const spaces = [
-	{size: "small", number: 1},{size: "small", number: 2},{size: "small", number: 3},
-	{size: "medium", number: 4},{size: "medium", number: 5},{size: "medium", number: 6},
-	{size: "large", number: 7},{size: "large", number: 8},{size: "large", number: 9}
-]
-ParkingSpace.bulkCreate(spaces, {
-	raw: true,
-	updateOnDuplicate: ["number"], 
-}).then(() => console.log("Parking Lot Created"));
-
-
-const types = [{type:"motorcycle"}, {type: "sedan"},{type:"truck"}]
-VehicleType.bulkCreate(types, {
-	raw: true,
-	updateOnDuplicate: ["type"], 
-}).then(() => console.log("Types Created"));
 
 module.exports = {
 	...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
