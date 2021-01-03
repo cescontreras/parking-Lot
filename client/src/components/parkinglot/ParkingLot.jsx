@@ -1,10 +1,11 @@
 import React from "react";
 import "./ParkingLot.css";
+import Toast from "react-bootstrap/Toast";
 
-export default function ParkingLot({ parkingLot, removeVehicle }) {
-		 
+export default function ParkingLot({parkingLot,	removeVehicle, setShow,	show,	msg}) {
 	return (
 		<div className="parkinglot">
+			<h2>Parking Lot</h2>
 			<table className="table table-bordered table-sm">
 				<thead>
 					<tr>
@@ -19,19 +20,36 @@ export default function ParkingLot({ parkingLot, removeVehicle }) {
 				</thead>
 				<tbody>
 					{parkingLot[0] &&
-						parkingLot.map((space, i) => (	
-							<tr className={space.isOccupied ? "table-danger" : "table-success"} key={i}>
+						parkingLot.map((space, i) => (
+							<tr
+								className={space.isOccupied ? "table-danger" : "table-success"}
+								key={i}
+							>
 								<th scope="row">{space.number}</th>
 								<td>{space.vehicles[0] ? space.vehicles[0].owner : "---"}</td>
 								<td>{space.size}</td>
 								<td>{space.vehicles[0] ? space.vehicles[0].type : "---"}</td>
 								<td>{space.vehicles[0] ? space.vehicles[0].id : "---"}</td>
 								<td>{space.isOccupied ? "Ocuppied" : "Free"}</td>
-								<td id={space.vehicles[0] && "remove"} onClick={() => removeVehicle(space.vehicles[0].id)}>X</td>
+								<td
+									id={space.vehicles[0] && "remove"}
+									onClick={() => removeVehicle(space.vehicles[0].id)}
+								>
+									X
+								</td>
 							</tr>
 						))}
 				</tbody>
 			</table>
+			<Toast
+				onClose={() => setShow(false)}
+				show={show}
+				delay={3000}
+				autohide
+				className="toast"
+			>
+				<Toast.Body>{msg}</Toast.Body>
+			</Toast>
 		</div>
 	);
 }

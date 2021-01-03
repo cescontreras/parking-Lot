@@ -5,8 +5,8 @@ export default function Queue({queue}) {
 
 	return (
 		<div className="queue">
+			<h2>Queue</h2>
 			<table className="table table-sm queue-table">
-      <caption>Queue</caption>
 				<thead>
 					<tr>
 						<th scope="col">Id</th>

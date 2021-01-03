@@ -20,10 +20,7 @@ export default function AddVehicle({postVehicle}) {
     postVehicle({owner,type}); 
 		setOwner("");
 		setType("");
-  }
-		console.log(owner);
-    console.log(type);
-		
+  }		
 			
 	return (
 		<div className="add-vehicle">
