@@ -26,6 +26,7 @@ $ cd client
 $ npm install
 $ npm start
 ```
+The app should be running at ``http://localhost:3000``
 
 ## Usage
 
