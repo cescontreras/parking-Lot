@@ -2,8 +2,6 @@ import React from "react";
 import "./ParkingLot.css";
 
 export default function ParkingLot({ parkingLot, removeVehicle }) {
-
-	console.log(parkingLot);
 		 
 	return (
 		<div className="parkinglot">
@@ -29,7 +27,7 @@ export default function ParkingLot({ parkingLot, removeVehicle }) {
 								<td>{space.vehicles[0] ? space.vehicles[0].type : "---"}</td>
 								<td>{space.vehicles[0] ? space.vehicles[0].id : "---"}</td>
 								<td>{space.isOccupied ? "Ocuppied" : "Free"}</td>
-								<td onClick={() => removeVehicle(space.vehicles[0].id)}>X</td>
+								<td id={space.vehicles[0] && "remove"} onClick={() => removeVehicle(space.vehicles[0].id)}>X</td>
 							</tr>
 						))}
 				</tbody>

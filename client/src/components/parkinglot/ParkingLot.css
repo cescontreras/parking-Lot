@@ -3,3 +3,12 @@
   display: flex;
   justify-content: center;
 }
+
+#remove {
+  background: rgb(242, 142, 142);
+}
+
+#remove:hover{
+  cursor: pointer;
+  color: white;
+}
