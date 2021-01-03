@@ -10,5 +10,21 @@ This app was made using:
   Sequelize ^6.3.5
   ```
 
-## Uso
+## Installation 
+
+First you will need to install PostgreSQL server and create a database named ``parkinglot``
+
+Then on root dir :
+```
+$ cd server
+$ npm install
+$ npm start
+```
+and 
+```
+$ cd client
+$ npm install
+$ npm start
+```
+
 
