@@ -1,6 +1,6 @@
 import React from "react";
-import "./ParkingLot.css";
 import Toast from "react-bootstrap/Toast";
+import "./ParkingLot.css";
 
 export default function ParkingLot({
 	parkingLot,

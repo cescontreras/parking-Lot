@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Queue from "./components/queue/Queue";
 import ParkingLot from "./components/parkinglot/ParkingLot";
-import Header from "./components/header/Header";
 import AddVehicle from "./components/addVehicle/AddVehicle";
 import axios from "axios";
 
@@ -50,7 +49,6 @@ function App() {
 
 	return (
 		<div className="App">
-			{/* <Header /> */}
 			<div className="gral-container">
 				<Queue queue={queue} />
 				<div className="parkinglot-container">
