@@ -45,7 +45,7 @@ export default function ParkingLot({
 										X
 									</td>
 								) : (
-									<td>X</td>
+									<td></td>
 								)}
 							</tr>
 						))}
